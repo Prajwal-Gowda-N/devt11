@@ -28,7 +28,7 @@ pipeline {
 
         stage('Run Docker Image') {
             steps {
-                bat 'docker run -d -p 8080:8080 myp'
+                bat 'docker run -d -p 6001:6001 myp'
             }
         }
     }
