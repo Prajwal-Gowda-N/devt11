@@ -10,7 +10,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        HttpServer s = HttpServer.create(new InetSocketAddress(6001), 0);
+        HttpServer s = HttpServer.create(new InetSocketAddress(6002), 0);
         s.createContext("/", e -> {
             byte[] r = greet().getBytes();
             e.sendResponseHeaders(200, r.length);
@@ -18,6 +18,6 @@ public class App {
             e.close();
         });
         s.start();
-        System.out.println("Running on http://localhost:6001");
+        System.out.println("Running on http://localhost:6002");
     }
 }
