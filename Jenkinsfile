@@ -1,34 +1,35 @@
-pipeline{
+pipeline {
     agent any
-   stages{
-      stage("Clone Code"){
-        steps{
-               git ''
-        }
-       
-      }
 
-      stage("Build"){
-        steps{
-           sh 'mvn clean package'
+    stages {
+        stage('Clone Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Prajwal-Gowda-N/devt11.git'
+            }
         }
-      }
-      stage("Test"){
-        steps{
-            sh 'mvn test'
-        }
-      }
 
-      stage("Build Docker Image"){
-        steps{
-            sh 'docker build -t myp .'
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
         }
-      }
-      stage("Run Docker Image"){
-        steps{
-            sh 'docker run -d myp'
-        }
-      }
 
-   }
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t myp .'
+            }
+        }
+
+        stage('Run Docker Image') {
+            steps {
+                bat 'docker run -d -p 8080:8080 myp'
+            }
+        }
+    }
 }
