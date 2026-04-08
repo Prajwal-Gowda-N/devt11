@@ -12,7 +12,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(6000), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(6001), 0);
 
         server.createContext("/", exchange -> {
             String response = greet();
