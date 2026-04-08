@@ -1,28 +1,31 @@
 package com.bnmit;
 
+import com.sun.net.httpserver.HttpServer;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+
 public class App {
-    int balance = 0;
 
-    public int deposite(int amount) {
-        balance += amount;
-        return balance;
+    public static String greet() {
+        return "Hello from Greeting App";
     }
 
-    public int withdraw(int amount) {
-        if (amount < balance) {
-            balance -= amount;
-        }
-        return balance;
-    }
+    public static void main(String[] args) throws Exception {
+        HttpServer server = HttpServer.create(new InetSocketAddress(6000), 0);
 
-    public int get_balance() {
-        return balance;
-    }
+        server.createContext("/", exchange -> {
+            String response = greet();
+            exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=UTF-8");
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(200, bytes.length);
 
-    public static void main(String[] args) {
-        App app = new App();
-        app.deposite(1000);
-        app.withdraw(200);
-        System.out.println(app.get_balance());
+            OutputStream os = exchange.getResponseBody();
+            os.write(bytes);
+            os.close();
+        });
+
+        server.start();
+        System.out.println("Running on http://localhost:6000");
     }
 }
