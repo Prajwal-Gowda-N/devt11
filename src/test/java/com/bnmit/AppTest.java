@@ -1,28 +1,12 @@
 package com.bnmit;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest {
 
-    /**
-     * Rigorous Test :-)
-     */
-   App bs;
-
-   @Before
-	public void setup() {
-		bs = new App();
-	}
-	
-	@Test
-	public void test_1() {
-		bs.deposite(100);
-		assertEquals(50,bs.withdraw(50));
-	}
-
+    @Test
+    public void testGreet() {
+        assertEquals("Hello from Greeting App", App.greet());
+    }
 }
